@@ -1,11 +1,11 @@
 import { Box, Grid, GridItem } from "@chakra-ui/react";
 import NewsCard from "./components/news/newsCard";
-import Search from "./components/nav/nav";
+import Nav from "./components/nav";
 
 const App = () => {
   return (
-    <Box>
-      <Search />
+    <Box maxW={"1200px"} m={"0 auto"} p={"0 12px"}>
+      <Nav />
       <Grid templateColumns={"repeat(3, 1fr)"} gap={6}>
         <GridItem w="100%">
           <NewsCard
