@@ -1,22 +1,42 @@
-import { Box, Grid, GridItem } from "@chakra-ui/react";
-import NewsCard from "./components/news/newsCard";
+import React from "react";
+import { Box, Grid, GridItem, Spinner, Text } from "@chakra-ui/react";
 import Nav from "./components/nav";
+import NewsCard from "./components/news/newsCard";
+import { useNewsData } from "./components/hooks/useNewsData";
 
-const App = () => {
+const App: React.FC = () => {
+  const { articles, isLoading, isError } = useNewsData();
+  // console.log(articles);
+
   return (
-    <Box maxW={"1200px"} m={"0 auto"} p={"0 12px"}>
+    <Box maxW={"1200px"} m={"0 auto 60px"} p={"0 12px"}>
       <Nav />
-      <Grid templateColumns={"repeat(3, 1fr)"} gap={6}>
-        <GridItem w="100%">
-          <NewsCard
-            image={
-              "https://ichef.bbci.co.uk/ace/standard/1024/cpsprodpb/d6ea/live/c0bb84c0-5bce-11ef-b2d2-cdb23d5d7c5b.jpg"
-            }
-            title={"hi"}
-            description={`"Since 12 noon today, the enemy has been carrying out targeted massive strikes on the Petrovsky district of the regional capital. According to preliminary information, seven civilians, including a teenager, were wounded," Pushilin said in a statement on Telegram.`}
-          />
-        </GridItem>
-      </Grid>
+
+      {isLoading && (
+        <Box display="flex" justifyContent="center" mt="20px">
+          <Spinner size="xl" />
+        </Box>
+      )}
+
+      {isError && (
+        <Box display="flex" justifyContent="center" mt="20px">
+          <Text color="red.500">Failed to load news articles</Text>
+        </Box>
+      )}
+
+      {!isLoading && !isError && (
+        <Grid templateColumns={"repeat(3, 1fr)"} gap={6}>
+          {articles.map((article, index) => (
+            <GridItem w="100%" key={index}>
+              <NewsCard
+                title={article.title}
+                source={article.source}
+                url={article.url}
+              />
+            </GridItem>
+          ))}
+        </Grid>
+      )}
     </Box>
   );
 };
