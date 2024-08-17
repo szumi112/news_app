@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import { categorizeTitle } from "../utils/categorize";
 import { Article } from "../types";
 import { useSearch } from "../context/searchContext";
+import { query } from "../consts/newsApiSearchQuery";
 
 interface OpenNewsArticle {
   title: string;
@@ -35,12 +36,10 @@ interface NYTArticle {
 }
 
 const fetchNewsData = async (): Promise<Article[]> => {
-  const query =
-    "world OR us OR politics OR business OR technology OR sports OR US OR UK";
   try {
     const urls = [
       `https://newsapi.org/v2/everything?q=${encodeURIComponent(
-        query,
+        query
       )}&apiKey=${import.meta.env.VITE_NEWSAPI_KEY}&language=en`,
       `https://content.guardianapis.com/search?api-key=${
         import.meta.env.VITE_GUARDIAN_KEY
@@ -115,7 +114,7 @@ export const useNewsData = () => {
 
     if (searchTerm) {
       filtered = filtered.filter((article) =>
-        article.title.toLowerCase().includes(searchTerm.toLowerCase()),
+        article.title.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
 
@@ -130,12 +129,12 @@ export const useNewsData = () => {
     if (dateSort === "newest") {
       filtered = filtered.sort(
         (a, b) =>
-          new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
+          new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
       );
     } else {
       filtered = filtered.sort(
         (a, b) =>
-          new Date(a.publishedAt).getTime() - new Date(b.publishedAt).getTime(),
+          new Date(a.publishedAt).getTime() - new Date(b.publishedAt).getTime()
       );
     }
 
