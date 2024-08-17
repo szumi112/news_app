@@ -29,39 +29,54 @@ const Pagination: React.FC<PaginationProps> = ({
   };
 
   return (
-    <Flex justifyContent="center" mt={4} alignItems="center" flexDir={"column"}>
-      <Flex justifyContent="center" mt={4} alignItems="center">
-        <Button
-          onClick={handlePrevious}
-          isDisabled={currentPage === 1}
-          mr={2}
-          width="100px"
-        >
-          Previous
-        </Button>
-        <Text mx={4}>
-          {currentPage}/{totalPages}
-        </Text>
-        <Button
-          onClick={handleNext}
-          isDisabled={currentPage === totalPages}
-          width="100px"
-        >
-          Next
-        </Button>
-      </Flex>
-      <Select
+    <nav aria-label="Pagination Navigation">
+      <Flex
+        role="navigation"
+        justifyContent="center"
         mt={4}
-        width="175px"
-        value={articlesPerPage}
-        onChange={(e) => setArticlesPerPage(Number(e.target.value))}
+        alignItems="center"
+        flexDir={"column"}
       >
-        <option value={5}>5 per page</option>
-        <option value={10}>10 per page</option>
-        <option value={20}>20 per page</option>
-        <option value={50}>50 per page</option>
-      </Select>
-    </Flex>
+        <nav aria-label="Pagination Navigation">
+          <Flex
+            role="navigation"
+            justifyContent="center"
+            mt={4}
+            alignItems="center"
+          >
+            <Button
+              onClick={handlePrevious}
+              isDisabled={currentPage === 1}
+              mr={2}
+              width="100px"
+            >
+              Previous
+            </Button>
+            <Text mx={4}>
+              {currentPage}/{totalPages}
+            </Text>
+            <Button
+              onClick={handleNext}
+              isDisabled={currentPage === totalPages}
+              width="100px"
+            >
+              Next
+            </Button>
+          </Flex>
+        </nav>
+        <Select
+          mt={4}
+          width="175px"
+          value={articlesPerPage}
+          onChange={(e) => setArticlesPerPage(Number(e.target.value))}
+        >
+          <option value={5}>5 per page</option>
+          <option value={10}>10 per page</option>
+          <option value={20}>20 per page</option>
+          <option value={50}>50 per page</option>
+        </Select>
+      </Flex>
+    </nav>
   );
 };
 

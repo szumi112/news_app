@@ -1,11 +1,13 @@
-import { Select, Flex, Box, Button } from "@chakra-ui/react";
+import { Select, Flex, Box, Button, useDisclosure } from "@chakra-ui/react";
 import { useSearch } from "../../context/searchContext";
 import { useEffect, useState } from "react";
+import { SettingsIcon } from "@chakra-ui/icons";
 
 const Filters = () => {
   const { setCategory, setDateSort, setSource, category, dateSort, source } =
     useSearch();
   const [showReset, setShowReset] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     if (category !== "All" || dateSort !== "newest" || source !== "All") {
@@ -27,7 +29,19 @@ const Filters = () => {
       my={4}
       flexDir={{ base: "column", md: "row" }}
     >
-      <Flex flexDir={{ base: "column", md: "row" }}>
+      <Button
+        display={{ base: "block", md: "none" }}
+        onClick={isOpen ? onClose : onOpen}
+        mb={4}
+      >
+        {isOpen ? "Hide Filters" : "Show Filters"}{" "}
+        <SettingsIcon style={{ marginBottom: "2px", marginLeft: "10px" }} />
+      </Button>
+
+      <Flex
+        flexDir={{ base: "column", md: "row" }}
+        display={{ base: isOpen ? "flex" : "none", md: "flex" }}
+      >
         <Box mr={{ base: 0, md: 2 }} mb={{ base: 2, md: 0 }}>
           <Select
             value={category}
@@ -73,7 +87,11 @@ const Filters = () => {
       </Flex>
 
       {showReset && (
-        <Button onClick={handleResetFilters} colorScheme={"red"}>
+        <Button
+          onClick={handleResetFilters}
+          colorScheme={"red"}
+          mt={{ base: 4, md: 0 }}
+        >
           Reset Filters
         </Button>
       )}
