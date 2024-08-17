@@ -220,13 +220,11 @@ export const categoryKeywords: { [key: string]: string[] } = {
     "U.S",
     "Trump",
     "Biden",
-
     "senate",
     "congress",
     "White House",
     "Supreme Court",
     "governor",
-
     "New York",
     "California",
     "Washington",

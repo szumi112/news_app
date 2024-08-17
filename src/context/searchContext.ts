@@ -3,6 +3,12 @@ import { createContext, useContext } from "react";
 interface SearchContextType {
   searchTerm: string;
   setSearchTerm: (term: string) => void;
+  category: string;
+  setCategory: (category: string) => void;
+  dateSort: "newest" | "oldest";
+  setDateSort: (sort: "newest" | "oldest") => void;
+  source: string;
+  setSource: (source: string) => void;
 }
 
 export const SearchContext = createContext<SearchContextType | undefined>(

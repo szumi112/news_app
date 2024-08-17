@@ -6,7 +6,7 @@ const Nav = () => {
   return (
     <>
       <Flex alignItems={"center"} justifyContent={"space-between"} my={4}>
-        <Heading as={"h1"}>News Aggregator</Heading>
+        <Heading as={"h1"}>News</Heading>
         <ToggleColorModeButton />
       </Flex>
       <Box my="40px" textAlign={"center"}>

@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import { categorizeTitle } from "../utils/categorize";
 import { Article } from "../types";
 import { useSearch } from "../context/searchContext";
@@ -41,9 +41,13 @@ const fetchNewsData = async (): Promise<Article[]> => {
     const urls = [
       `https://newsapi.org/v2/everything?q=${encodeURIComponent(
         query
-      )}&apiKey=88c7f3236f644e9bbd9d032b2e1d80b8&language=en`,
-      "https://content.guardianapis.com/search?api-key=68160b14-7929-4e4d-9443-2785153ce0cf",
-      "https://api.nytimes.com/svc/topstories/v2/world.json?api-key=9jRmU39DAGM3osstzNUWiaxAKirM0Tr2",
+      )}&apiKey=${import.meta.env.VITE_NEWSAPI_KEY}&language=en`,
+      `https://content.guardianapis.com/search?api-key=${
+        import.meta.env.VITE_GUARDIAN_KEY
+      }`,
+      `https://api.nytimes.com/svc/topstories/v2/world.json?api-key=${
+        import.meta.env.VITE_NYTIMES_KEY
+      }`,
     ];
 
     const requests = urls.map((url) => axios.get(url));
@@ -91,8 +95,7 @@ const fetchNewsData = async (): Promise<Article[]> => {
 };
 
 export const useNewsData = () => {
-  const { searchTerm } = useSearch();
-  const [sortBy, setSortBy] = useState<"date" | "title">("date");
+  const { searchTerm, category, dateSort, source } = useSearch();
 
   const {
     data: articles = [],
@@ -108,28 +111,40 @@ export const useNewsData = () => {
   const filteredArticles = useMemo(() => {
     let filtered = articles;
 
+    filtered = filtered.filter((article) => article.title !== "[Removed]");
+
     if (searchTerm) {
       filtered = filtered.filter((article) =>
         article.title.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
 
-    if (sortBy === "date") {
+    if (category && category !== "All") {
+      filtered = filtered.filter((article) => article.category === category);
+    }
+
+    if (source && source !== "All") {
+      filtered = filtered.filter((article) => article.source === source);
+    }
+
+    if (dateSort === "newest") {
       filtered = filtered.sort(
         (a, b) =>
           new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
       );
-    } else if (sortBy === "title") {
-      filtered = filtered.sort((a, b) => a.title.localeCompare(b.title));
+    } else {
+      filtered = filtered.sort(
+        (a, b) =>
+          new Date(a.publishedAt).getTime() - new Date(b.publishedAt).getTime()
+      );
     }
 
     return filtered;
-  }, [articles, searchTerm, sortBy]);
+  }, [articles, searchTerm, category, dateSort, source]);
 
   return {
     articles: filteredArticles,
     isLoading,
     isError,
-    setSortBy,
   };
 };
