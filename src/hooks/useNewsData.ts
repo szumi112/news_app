@@ -1,14 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useState, useMemo } from "react";
-
-interface Article {
-  title: string;
-  url: string;
-  source: string;
-  publishedAt: string;
-  category?: string;
-}
+import { categorizeTitle } from "../utils/categorize";
+import { Article } from "../types";
 
 interface OpenNewsArticle {
   title: string;
@@ -62,7 +56,7 @@ const fetchNewsData = async (): Promise<Article[]> => {
           url: article.url,
           source: "OpenNews",
           publishedAt: article.publishedAt,
-          category: article.category,
+          category: categorizeTitle(article.title),
         }));
       } else if (index === 1) {
         const data = response.data as {
@@ -73,7 +67,7 @@ const fetchNewsData = async (): Promise<Article[]> => {
           url: article.webUrl,
           source: "The Guardian",
           publishedAt: article.webPublicationDate,
-          category: article.category,
+          category: categorizeTitle(article.webTitle),
         }));
       } else if (index === 2) {
         const data = response.data as { results: NYTArticle[] };
@@ -82,7 +76,7 @@ const fetchNewsData = async (): Promise<Article[]> => {
           url: article.url,
           source: "New York Times",
           publishedAt: article.published_date,
-          category: article.category,
+          category: categorizeTitle(article.title),
         }));
       }
       return [];
