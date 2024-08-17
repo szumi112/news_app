@@ -4,7 +4,6 @@ import NewsCard from "./newsCard";
 
 const NewsList = () => {
   const { articles, isLoading, isError } = useNewsData();
-  console.log(articles);
   return (
     <>
       {isLoading && (
