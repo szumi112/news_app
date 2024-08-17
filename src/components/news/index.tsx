@@ -19,7 +19,14 @@ const NewsList = () => {
       )}
 
       {!isLoading && !isError && (
-        <Grid templateColumns={"repeat(3, 1fr)"} gap={6}>
+        <Grid
+          templateColumns={{
+            base: "repeat(1, 1fr)",
+            md: "repeat(2, 1fr)",
+            xl: "repeat(3, 1fr)",
+          }}
+          gap={6}
+        >
           {articles.map((article) => (
             <GridItem w="100%" key={article.url}>
               <NewsCard
