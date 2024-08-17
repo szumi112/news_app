@@ -3,6 +3,7 @@ import axios from "axios";
 import { useState, useMemo } from "react";
 import { categorizeTitle } from "../utils/categorize";
 import { Article } from "../types";
+import { useSearch } from "../context/searchContext";
 
 interface OpenNewsArticle {
   title: string;
@@ -90,7 +91,7 @@ const fetchNewsData = async (): Promise<Article[]> => {
 };
 
 export const useNewsData = () => {
-  const [searchTerm, setSearchTerm] = useState("");
+  const { searchTerm } = useSearch();
   const [sortBy, setSortBy] = useState<"date" | "title">("date");
 
   const {
@@ -129,7 +130,6 @@ export const useNewsData = () => {
     articles: filteredArticles,
     isLoading,
     isError,
-    setSearchTerm,
     setSortBy,
   };
 };
