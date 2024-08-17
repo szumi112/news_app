@@ -12,7 +12,7 @@ interface SearchContextType {
 }
 
 export const SearchContext = createContext<SearchContextType | undefined>(
-  undefined
+  undefined,
 );
 
 export const useSearch = () => {

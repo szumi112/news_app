@@ -1,25 +1,20 @@
-import { useState } from "react";
 import { Box, Grid, GridItem, Spinner, Text } from "@chakra-ui/react";
 import { useNewsData } from "../../hooks/useNewsData";
 import NewsCard from "./newsCard";
 import Pagination from "./pagination";
+import usePagination from "../../hooks/usePagination";
+import { Article } from "../../types";
 
 const NewsList = () => {
   const { articles, isLoading, isError } = useNewsData();
-  const [currentPage, setCurrentPage] = useState(1);
-  const [articlesPerPage, setArticlesPerPage] = useState(10);
-
-  const indexOfLastArticle = currentPage * articlesPerPage;
-  const indexOfFirstArticle = indexOfLastArticle - articlesPerPage;
-  const currentArticles = articles.slice(
-    indexOfFirstArticle,
-    indexOfLastArticle
-  );
-  const totalPages = Math.ceil(articles.length / articlesPerPage);
-
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-  };
+  const {
+    currentItems: currentArticles,
+    totalPages,
+    currentPage,
+    handlePageChange,
+    itemsPerPage,
+    setItemsPerPage,
+  } = usePagination<Article>(articles, 10);
 
   return (
     <>
@@ -61,8 +56,8 @@ const NewsList = () => {
             currentPage={currentPage}
             totalPages={totalPages}
             onPageChange={handlePageChange}
-            articlesPerPage={articlesPerPage}
-            setArticlesPerPage={setArticlesPerPage}
+            articlesPerPage={itemsPerPage}
+            setArticlesPerPage={setItemsPerPage}
           />
         </>
       )}

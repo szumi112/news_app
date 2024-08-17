@@ -11,5 +11,5 @@ createRoot(document.getElementById("root")!).render(
     <ChakraProvider theme={theme}>
       <App />
     </ChakraProvider>
-  </QueryClientProvider>
+  </QueryClientProvider>,
 );

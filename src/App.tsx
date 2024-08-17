@@ -22,7 +22,7 @@ const App: React.FC = () => {
       source,
       setSource,
     }),
-    [searchTerm, category, dateSort, source]
+    [searchTerm, category, dateSort, source],
   );
 
   return (
