@@ -5,6 +5,7 @@ build:
 	docker build -t $(IMAGE_NAME) .
 
 run:
+	docker rm $(CONTAINER_NAME) || true
 	docker run -p 3000:3000 --name $(CONTAINER_NAME) -v $(shell pwd):/app $(IMAGE_NAME)
 
 stop:
