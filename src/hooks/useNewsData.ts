@@ -2,38 +2,14 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useMemo } from "react";
 import { categorizeTitle } from "../utils/categorize";
-import { Article } from "../types";
+import {
+  Article,
+  GuardianArticle,
+  NYTArticle,
+  OpenNewsArticle,
+} from "../types";
 import { useSearch } from "../context/searchContext";
 import { query } from "../consts/newsApiSearchQuery";
-
-interface OpenNewsArticle {
-  title: string;
-  url: string;
-  publishedAt: string;
-  category?: string;
-}
-
-interface GuardianArticleFields {
-  trailText?: string;
-  bodyText?: string;
-}
-
-interface GuardianArticle {
-  webTitle: string;
-  webUrl: string;
-  webPublicationDate: string;
-  fields?: GuardianArticleFields;
-  url: string;
-  category?: string;
-}
-
-interface NYTArticle {
-  title: string;
-  abstract: string;
-  url: string;
-  published_date: string;
-  category?: string;
-}
 
 const fetchNewsData = async (): Promise<Article[]> => {
   try {
@@ -85,6 +61,8 @@ const fetchNewsData = async (): Promise<Article[]> => {
       }
       return [];
     });
+
+    console.log("Fetched news data:", articles);
 
     return articles;
   } catch (error) {
