@@ -32,33 +32,41 @@ const NewsList = () => {
 
       {!isLoading && !isError && (
         <>
-          <Grid
-            templateColumns={{
-              base: "repeat(1, 1fr)",
-              md: "repeat(2, 1fr)",
-              xl: "repeat(3, 1fr)",
-            }}
-            gap={6}
-          >
-            {currentArticles.map((article) => (
-              <GridItem w="100%" key={article.url}>
-                <NewsCard
-                  title={article.title}
-                  source={article.source}
-                  url={article.url}
-                  category={article.category}
-                  date={article.publishedAt}
-                />
-              </GridItem>
-            ))}
-          </Grid>
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
-            articlesPerPage={itemsPerPage}
-            setArticlesPerPage={setItemsPerPage}
-          />
+          {currentArticles.length > 0 ? (
+            <>
+              <Grid
+                templateColumns={{
+                  base: "repeat(1, 1fr)",
+                  md: "repeat(2, 1fr)",
+                  xl: "repeat(3, 1fr)",
+                }}
+                gap={6}
+              >
+                {currentArticles.map((article) => (
+                  <GridItem w="100%" key={article.url}>
+                    <NewsCard
+                      title={article.title}
+                      source={article.source}
+                      url={article.url}
+                      category={article.category}
+                      date={article.publishedAt}
+                    />
+                  </GridItem>
+                ))}
+              </Grid>
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+                articlesPerPage={itemsPerPage}
+                setArticlesPerPage={setItemsPerPage}
+              />
+            </>
+          ) : (
+            <Box display="flex" justifyContent="center" mt="20px">
+              <Text>No articles found</Text>
+            </Box>
+          )}
         </>
       )}
     </>
