@@ -8,6 +8,8 @@ To run this project, you need to have the following installed:
 
 - Docker
 - (Optional) make (if you want to use the provided Makefile for easier command execution)
+- [Node.js](https://nodejs.org/) (Version 18.0 or higher)
+- [npm](https://www.npmjs.com/) (Node Package Manager, usually installed with Node.js)
 
 # Getting Started
 
@@ -48,3 +50,11 @@ If you have make installed, you can use the Makefile provided in this repository
 ### Run the Docker Container:
 
 `make run`
+
+## Running Tests
+
+To run the tests for this project, simply use the following command:
+
+`npm test`
+
+This will execute all the tests defined in the project, giving you feedback on the test results.
