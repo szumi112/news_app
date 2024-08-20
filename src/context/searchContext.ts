@@ -5,14 +5,14 @@ interface SearchContextType {
   setSearchTerm: (term: string) => void;
   category: string;
   setCategory: (category: string) => void;
-  dateSort: "newest" | "oldest";
+  dateSort: string;
   setDateSort: (sort: "newest" | "oldest") => void;
   source: string;
   setSource: (source: string) => void;
 }
 
 export const SearchContext = createContext<SearchContextType | undefined>(
-  undefined,
+  undefined
 );
 
 export const useSearch = () => {

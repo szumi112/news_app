@@ -1,8 +1,10 @@
-import { Select, Flex, Box, Button, useDisclosure } from "@chakra-ui/react";
-import { useSearch } from "../../context/searchContext";
+import { Flex, Button, useDisclosure } from "@chakra-ui/react";
 import { useEffect, useState, useCallback } from "react";
 import { SettingsIcon } from "@chakra-ui/icons";
-import { categories, sources } from "../../consts/filters";
+import CategorySelect from "./selects/categorySelect";
+import DateSortSelect from "./selects/dateSortSelect";
+import SourceSelect from "./selects/sourceSelect";
+import { useSearch } from "../../context/searchContext";
 
 const Filters = () => {
   const {
@@ -48,44 +50,9 @@ const Filters = () => {
         flexDir={{ base: "column", md: "row" }}
         display={{ base: isOpen ? "flex" : "none", md: "flex" }}
       >
-        <Box mr={{ base: 0, md: 2 }} mb={{ base: 2, md: 0 }}>
-          <Select
-            value={category}
-            placeholder="Select Category"
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            {categories.map((cat) => (
-              <option key={cat} value={cat}>
-                {cat}
-              </option>
-            ))}
-          </Select>
-        </Box>
-
-        <Box mr={{ base: 0, md: 2 }} mb={{ base: 2, md: 0 }}>
-          <Select
-            value={dateSort}
-            placeholder="Sort by Date"
-            onChange={(e) => setDateSort(e.target.value as "newest" | "oldest")}
-          >
-            <option value="newest">Newest</option>
-            <option value="oldest">Oldest</option>
-          </Select>
-        </Box>
-
-        <Box mb={{ base: 6, md: 0 }}>
-          <Select
-            value={source}
-            placeholder="Select Source"
-            onChange={(e) => setSource(e.target.value)}
-          >
-            {sources.map((src) => (
-              <option key={src} value={src}>
-                {src}
-              </option>
-            ))}
-          </Select>
-        </Box>
+        <CategorySelect />
+        <DateSortSelect />
+        <SourceSelect />
       </Flex>
 
       {showReset && (
@@ -93,6 +60,7 @@ const Filters = () => {
           onClick={handleResetFilters}
           colorScheme="red"
           mt={{ base: 4, md: 0 }}
+          data-testid="reset-button"
         >
           Reset Filters
         </Button>

@@ -11,7 +11,7 @@ interface PaginationResult<T> {
 
 function usePagination<T>(
   data: T[],
-  initialItemsPerPage: number,
+  initialItemsPerPage: number
 ): PaginationResult<T> {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(initialItemsPerPage);
@@ -23,7 +23,7 @@ function usePagination<T>(
   const indexOfLastItem = currentPage * itemsPerPage;
   const currentItems = data.slice(
     indexOfLastItem - itemsPerPage,
-    indexOfLastItem,
+    indexOfLastItem
   );
   const totalPages = Math.ceil(data.length / itemsPerPage);
 
