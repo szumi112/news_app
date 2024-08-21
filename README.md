@@ -2,7 +2,7 @@
 
 This is a Dockerized Vite-based React application that allows users to search for news by keywords and filter or personalize their news feed.
 
-# Prerequisites
+### Prerequisites
 
 To run this project, you need to have the following installed:
 
@@ -39,7 +39,7 @@ To start the application, run the following command:
 
 This command starts a Docker container named news-app and maps port 3000 of the container to port 3000 on your local machine. The application will be accessible at http://localhost:3000.
 
-## Using the Makefile (Optional)
+### Using the Makefile (Optional)
 
 If you have make installed, you can use the Makefile provided in this repository to simplify the Docker commands.
 
