@@ -11,7 +11,7 @@ To run this project, you need to have the following installed:
 - [Node.js](https://nodejs.org/) (Version 18.0 or higher)
 - [npm](https://www.npmjs.com/) (Node Package Manager, usually installed with Node.js)
 
-# Getting Started
+### Getting Started
 
 Follow these steps to build and run the project using Docker.
 
